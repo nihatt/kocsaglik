@@ -5,12 +5,16 @@ import { responsiveHeight, responsiveWidth } from 'react-native-responsive-dimen
 import { Input } from '@rneui/themed';
 import Lottie from 'lottie-react-native';
 import users from '../Data/users';
+import { Icon } from '@rneui/themed';
+import { BackgroundImage } from '@rneui/base';
+import { ImageBackground } from 'react-native';
 const LoginPage = ({ navigation }) => {
     const [username, setUsername] = useState('');
     const [password, setPassword] = useState('');
     const [coloru, setColorU] = useState('gray')
     const [colorp, setColorP] = useState('gray')
     const [colorv, setColorV] = useState('gray')
+    const [iconColor, setIconColor] = useState('gray')
     const [verificationCode, setVerificationCode] = useState('');
     const [attemptCount, setAttemptCount] = useState(0);
     const [verificationCodeG, setVerificationCodeG] = useState('');
@@ -23,9 +27,9 @@ const LoginPage = ({ navigation }) => {
                 navigation.navigate('Main', {
                     screen: 'FirstDrawerPage',
                     params: {
-                      user: user,
+                        user: user,
                     },
-                  });
+                });
             } else {
                 setAttemptCount(attemptCount + 1);
                 if (attemptCount === 2) {
@@ -44,9 +48,9 @@ const LoginPage = ({ navigation }) => {
                 navigation.navigate('Main', {
                     screen: 'FirstDrawerPage',
                     params: {
-                      user: user,
+                        user: user,
                     },
-                  });
+                });
             } else {
                 Alert.alert('Hatalı Girdi', "Lütfen Alanları Tekrar Kontrol Ediniz");
             }
@@ -65,64 +69,76 @@ const LoginPage = ({ navigation }) => {
     };
 
     return (
-        <View style={{ height: responsiveHeight(100) - StatusBar.currentHeight, alignItems: 'center', paddingTop: StatusBar.currentHeight }}>
-            <Lottie source={require('../assets/images/login2.json')} style={{ height: 200, overflow: 'hidden' }} autoPlay loop />
-            <Input
-                placeholder='Kullanıcı Adı'
-                containerStyle={{ width: responsiveWidth(70) }}
-                onFocus={() => setColorU("green")}
-                onBlur={() => setColorU("gray")}
-                leftIcon={{ type: 'font-awesome', name: 'user', color: coloru }}
-                onChangeText={(text) => setUsername(text)}
-                value={username}
-            />
+        <ImageBackground  blurRadius={10} source={require('../assets/images/bgbg.jpg')}>
+        <View>
+            <View style={{ height: responsiveHeight(100) - StatusBar.currentHeight, alignItems: 'center', paddingTop:50+ StatusBar.currentHeight }}>
+                <Lottie source={require('../assets/images/login2.json')} style={{ height: 200, overflow: 'hidden' }} autoPlay loop />
+                <Input
+                    placeholder='Kullanıcı Adı'
+                    containerStyle={{ width: responsiveWidth(70) }}
+                    onFocus={() => setColorU("green")}
+                    onBlur={() => setColorU("gray")}
+                    leftIcon={{ type: 'font-awesome', name: 'user', color: coloru }}
+                    onChangeText={(text) => setUsername(text)}
+                    value={username}
+                />
 
-            <Input
-                placeholder='Şifre'
-                containerStyle={{ width: responsiveWidth(70) }}
-                onFocus={() => setColorP("green")}
-                onBlur={() => setColorP("gray")}
-                leftIcon={{ type: 'font-awesome', name: 'lock', color: colorp }}
-                onChangeText={(text) => setPassword(text)}
-                value={password}
-                secureTextEntry
-            />
+                <Input
+                    placeholder='Şifre'
+                    containerStyle={{ width: responsiveWidth(70) }}
+                    onFocus={() => setColorP("green")}
+                    onBlur={() => setColorP("gray")}
+                    leftIcon={{ type: 'font-awesome', name: 'lock', color: colorp }}
+                    onChangeText={(text) => setPassword(text)}
+                    value={password}
+                    secureTextEntry
+                />
 
-            {attemptCount === 3 ? (
-                <>
+                {attemptCount === 3 ? (
+                    <>
 
-                    <View style={{ flexDirection: 'row', width: responsiveWidth(70), alignSelf: 'center', justifyContent: 'space-between' }}>
+                        <View style={{ flexDirection: 'row', width: responsiveWidth(70), alignSelf: 'center', justifyContent: 'space-between' }}>
 
-                        <Text style={{ fontSize: 20, alignSelf: 'baseline', textAlign: 'center', textAlignVertical: 'center', flex: 1, height: responsiveHeight(8) }}>{verificationCode}</Text>
-                        <Input
-                            placeholder='Güvenlik Kodu'
-                            containerStyle={{ width: responsiveWidth(50), alignSelf: 'center', justifyContent: 'center', height: responsiveHeight(10) }}
+                            <Text style={{ fontSize: 20, alignSelf: 'baseline', textAlign: 'center', textAlignVertical: 'center', flex: 1, height: responsiveHeight(8) }}>{verificationCode}</Text>
+                            <Input
+                                placeholder='Güvenlik Kodu'
+                                containerStyle={{ width: responsiveWidth(50), alignSelf: 'center', justifyContent: 'center', height: responsiveHeight(10) }}
 
-                            onFocus={() => setColorV("green")}
-                            onBlur={() => setColorV("gray")}
-                            leftIcon={{ type: 'font-awesome', name: 'star', color: colorv }}
-                            onChangeText={(text) => setVerificationCodeG(text)}
-                            value={verificationCodeG}
-                        />
-                    </View>
+                                onFocus={() => setColorV("green")}
+                                onBlur={() => setColorV("gray")}
+                                leftIcon={{ type: 'font-awesome', name: 'star', color: colorv }}
+                                onChangeText={(text) => setVerificationCodeG(text)}
+                                value={verificationCodeG}
+                            />
+                        </View>
 
-                </>
-            ) : (
-                null
-            )}
-            <Button
-                onPress={handleLogin}
-                title="Giriş Yap"
-                buttonStyle={{ backgroundColor: 'rgba(127, 220, 103, 1)' }}
-                containerStyle={{
-                    width: responsiveWidth(70),
-                }}
-                titleStyle={{
-                    color: 'white',
-                    marginHorizontal: 20,
-                }}
-            />
+                    </>
+                ) : (
+                    null
+                )}
+                <Button
+                    onPress={handleLogin}
+                    title="Giriş Yap"
+                    buttonStyle={{ backgroundColor: 'rgba(127, 220, 103, 1)' }}
+                    containerStyle={{
+                        width: responsiveWidth(70),
+                    }}
+                    titleStyle={{
+                        color: 'white',
+                        marginHorizontal: 20,
+                    }}
+                />
+            </View>
+            <View style={{flexDirection:'row',alignSelf:'center',width:responsiveWidth(60),justifyContent:'space-around'}}>
+            <Text style={{ alignSelf: 'center' }}>2023 Nihat Pamukçu made with</Text>
+            <Icon
+                name='heart'
+                type='font-awesome'
+                color={iconColor}
+                onPress={() => setIconColor("red")} />
+                </View>
         </View>
+        </ImageBackground>
     );
 };
 
